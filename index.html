@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="PanoEdit is a training-free framework for fine-grained and consistent 360 panorama editing with content consistency sampling, adaptive mask generation, and a new panorama editing benchmark.">
+  <meta name="keywords"
+    content="PanoEdit, panorama editing, 360 image editing, diffusion models, IJCV, PoEBench, image-to-image translation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PanoEdit: Fine-grained Control for Consistent 360 Panorama Editing</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/index.js"></script>
+</head>
+
+<body>
+  <nav class="navbar site-navbar" role="navigation" aria-label="main navigation">
+    <div class="container is-max-desktop">
+      <div class="navbar-brand">
+        <a class="navbar-item brand-mark" href="#top">PanoEdit</a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="#abstract">Abstract</a>
+          <a class="navbar-item" href="#method">Method</a>
+          <a class="navbar-item" href="#examples">Examples</a>
+          <a class="navbar-item" href="#benchmark">Benchmark</a>
+          <a class="navbar-item" href="#bibtex">BibTeX</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero hero-fdsm" id="top">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <p class="hero-kicker">IJCV Project Page</p>
+            <h1 class="title is-1 publication-title">PanoEdit: Fine-grained Control for Consistent 360&deg; Panorama Editing</h1>
+            <p class="hero-tagline">
+              A training-free panorama editing framework that avoids DDIM inversion drift, supports precise local edits,
+              and preserves global 360&deg; coherence.
+            </p>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Yuxi Zhou<sup>1,*</sup>,</span>
+              <span class="author-block">Zhengbo Zhang<sup>2,*</sup>,</span>
+              <span class="author-block">Lin Geng Foo<sup>3</sup>,</span>
+              <span class="author-block">Christian Theobalt<sup>3</sup>,</span>
+              <span class="author-block">Junsong Yuan<sup>4</sup>,</span>
+              <span class="author-block">Zhigang Tu<sup>1</sup></span>
+            </div>
+
+            <div class="is-size-6 publication-authors publication-affiliations">
+              <span class="author-block"><sup>1</sup>Wuhan University</span>
+              <span class="author-block"><sup>2</sup>Singapore University of Technology and Design</span>
+              <span class="author-block"><sup>3</sup>Max Planck Institute for Informatics, Saarland Informatics Campus</span>
+              <span class="author-block"><sup>4</sup>State University of New York at Buffalo</span>
+            </div>
+            <div class="is-size-6 publication-authors publication-affiliations">
+              <span class="author-block"><sup>*</sup>Equal contribution</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="./static/pdfs/panoedit_ijcv.pdf" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper PDF</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#bibtex" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-quote-right"></i></span>
+                    <span>BibTeX</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="hero-figure-wrap">
+              <div class="figure-shell large-shell">
+                <img class="paper-image" src="./static/images/panoedit_intro.png"
+                  alt="Overview of fine-grained panorama editing results produced by PanoEdit">
+              </div>
+            </div>
+
+            <div class="columns is-multiline highlight-grid has-text-left">
+              <div class="column is-4-desktop is-12-tablet">
+                <div class="highlight-card">
+                  <p class="highlight-label">Content Consistency Sampling</p>
+                  <p class="highlight-copy">Reformulates panorama editing as image-to-image translation, starting from the source panorama instead of relying on error-prone DDIM inversion.</p>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-12-tablet">
+                <div class="highlight-card">
+                  <p class="highlight-label">Fine-grained Local Editing</p>
+                  <p class="highlight-copy">Adaptive mask generation enables precise edits to target regions while preserving the background and unedited structures.</p>
+                </div>
+              </div>
+              <div class="column is-4-desktop is-12-tablet">
+                <div class="highlight-card">
+                  <p class="highlight-label">PoEBench</p>
+                  <p class="highlight-copy">A benchmark with 928 panoramas across 6 editing categories for evaluating semantic quality, fidelity, and panoramic consistency.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="abstract">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 section-title">Abstract</h2>
+          <div class="content has-text-justified lead-content">
+            <p>
+              The increasing prominence of 360&deg; panoramas in autonomous driving, robotics and virtual reality
+              applications has heightened the demand for sophisticated panoramic image editing capabilities. However,
+              existing editing approaches struggle with the unique challenges posed by panoramic representations,
+              including geometric distortions and imprecise local content control.
+            </p>
+            <p>
+              We present PanoEdit, a training-free approach that leverages pre-trained image diffusion models to enable
+              both global and fine-grained panorama editing. Instead of depending on DDIM inversion, which accumulates
+              errors and degrades edit fidelity, PanoEdit reformulates panorama editing as an image-to-image translation
+              process from the source panorama to the edited panorama. The framework further combines adaptive
+              fine-grained mask generation and self-attention fusion to maintain edit precision and global panoramic
+              coherence.
+            </p>
+            <p>
+              To support systematic evaluation, we introduce PoEBench, a benchmark of 928 high-quality panoramas with
+              detailed annotations spanning 6 editing categories. Experiments show substantial improvements over prior
+              panorama editing methods in structure preservation, consistency, and runtime.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="method">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full has-text-centered">
+          <p class="section-eyebrow">Method</p>
+          <h2 class="title is-3 section-title">Training-free editing pipeline.</h2>
+        </div>
+      </div>
+
+      <div class="results-panel">
+        <img class="results-image" src="./static/images/panoedit_pipeline.png"
+          alt="Pipeline of PanoEdit with content consistency sampling, mask generation, and panorama-aware editing">
+      </div>
+
+      <div class="columns is-multiline stat-strip">
+        <div class="column is-4-desktop is-12-tablet">
+          <div class="stat-card">
+            <div class="stat-value">77.0%</div>
+            <div class="stat-label">Structure Distance Reduction</div>
+            <div class="stat-note">Compared with 360PanT on PoEBench.</div>
+          </div>
+        </div>
+        <div class="column is-4-desktop is-12-tablet">
+          <div class="stat-card">
+            <div class="stat-value">55.8%</div>
+            <div class="stat-label">OmniFID Reduction</div>
+            <div class="stat-note">Higher fidelity to the target edit while preserving panorama realism.</div>
+          </div>
+        </div>
+        <div class="column is-4-desktop is-12-tablet">
+          <div class="stat-card">
+            <div class="stat-value">4.6&times;</div>
+            <div class="stat-label">Faster Inference</div>
+            <div class="stat-note">Training-free and substantially faster than the previous panorama editing baseline.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="examples">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full has-text-centered">
+          <p class="section-eyebrow">Examples</p>
+          <h2 class="title is-3 section-title">Fine-grained panorama editing results.</h2>
+        </div>
+      </div>
+
+      <div class="columns is-multiline comparison-grid">
+        <div class="column is-4-desktop is-12-tablet">
+          <div class="comparison-card">
+            <p class="comparison-title">Example 1</p>
+            <div class="comparison-pair">
+              <div class="comparison-item">
+                <p class="comparison-label">Input</p>
+                <img class="comparison-image" src="./static/images/input_1.png" alt="Input panorama example 1">
+              </div>
+              <div class="comparison-item">
+                <p class="comparison-label">PanoEdit</p>
+                <img class="comparison-image" src="./static/images/panoedit_1.png" alt="Edited panorama example 1">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-4-desktop is-12-tablet">
+          <div class="comparison-card">
+            <p class="comparison-title">Example 2</p>
+            <div class="comparison-pair">
+              <div class="comparison-item">
+                <p class="comparison-label">Input</p>
+                <img class="comparison-image" src="./static/images/input_2.jpg" alt="Input panorama example 2">
+              </div>
+              <div class="comparison-item">
+                <p class="comparison-label">PanoEdit</p>
+                <img class="comparison-image" src="./static/images/panoedit_2.png" alt="Edited panorama example 2">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-4-desktop is-12-tablet">
+          <div class="comparison-card">
+            <p class="comparison-title">Example 3</p>
+            <div class="comparison-pair">
+              <div class="comparison-item">
+                <p class="comparison-label">Input</p>
+                <img class="comparison-image" src="./static/images/input_3.png" alt="Input panorama example 3">
+              </div>
+              <div class="comparison-item">
+                <p class="comparison-label">PanoEdit</p>
+                <img class="comparison-image" src="./static/images/panoedit_3.png" alt="Edited panorama example 3">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="benchmark">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full has-text-centered">
+          <p class="section-eyebrow">Benchmark</p>
+          <h2 class="title is-3 section-title">PoEBench evaluation overview.</h2>
+        </div>
+      </div>
+
+      <div class="results-panel">
+        <img class="results-image" src="./static/images/panoedit_benchmark.png"
+          alt="Benchmark overview for PoEBench and quantitative evaluation of panorama editing methods">
+      </div>
+      <p class="figure-caption has-text-centered">
+        PoEBench contains 928 panoramas from diverse indoor and outdoor scenes with annotations for prompts,
+        instructions, masks, and edit types, enabling comprehensive evaluation of local edit quality and global
+        consistency.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="bibtex">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-3 section-title has-text-centered">BibTeX</h2>
+      <pre class="bibtex-block"><code>@article{zhou2026panoedit,
+  title   = {PanoEdit: Fine-grained Control for Consistent 360 Panorama Editing},
+  author  = {Yuxi Zhou and Zhengbo Zhang and Lin Geng Foo and Christian Theobalt and Junsong Yuan and Zhigang Tu},
+  journal = {International Journal of Computer Vision},
+  note    = {IJCV submission project page},
+  year    = {2026}
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer site-footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./static/pdfs/panoedit_ijcv.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="#bibtex">
+          <i class="fas fa-quote-right"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+            <p>Template adapted from the <a href="https://github.com/yuzhi535/FDSM.github.io">FDSM project page</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
